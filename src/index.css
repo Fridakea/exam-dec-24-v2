@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Poppins", sans-serif;
+  color-scheme: dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+  }
+
+  :root {
+    --background: 0 0 18%;
+    --foreground: 39 54% 92%;
+
+    --card: 30 12% 60%;
+    --card-foreground: 0 0 13%;
+
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 24 9.8% 10%;
+
+    --secondary: 0 0 15%;
+    --secondary-foreground: 39 54% 89%;
+
+    --muted: 0 0 8%;
+    --muted-foreground: 26 5% 55%;
+
+    --accent: 24 50% 39%;
+    --accent-foreground: 24 50% 49%;
+
+    --destructive: 0 29% 33%;
+    --destructive-foreground: 39 54% 92%;
+
+    --green: 130 8% 20%;
+
+    --border: 12 6.5% 15.1%;
+    --input: 0 0 23%;
+    --ring: 24 5.7% 82.9%;
+
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  button,
+  label {
+    @apply uppercase no-underline;
+  }
+
+  h1 {
+    @apply ~text-3xl/5xl;
+    font-family: "Nova Cut";
+  }
+
+  h2 {
+    @apply ~text-2xl/3xl;
+  }
+
+  h3 {
+    @apply ~text-lg/xl;
+  }
+
+  p {
+    @apply ~text-base/lg;
+  }
+
+  .skeleton {
+    @apply bg-secondary animate-pulse rounded-md;
+  }
+
+  /* Remove arrows on number input on Chrome, Safari, Edge & Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Remove arrows on number input on Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  * {
+    --sb-track-color: hsl(var(--primary-foreground));
+    --sb-thumb-color: hsl(var(--card));
+    --sb-size: 9px;
+  }
+
+  *::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 2px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 4px;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+  }
+}
+
+@media (min-width: 400px) {
+  .payment-flex-row {
+    @apply flex-row;
+  }
+
+  .payment-flex-col {
+    @apply flex-col;
+  }
+}
