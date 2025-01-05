@@ -16,6 +16,7 @@ import { Step4PaymentInformationPage } from "./pages/ticket-multistep/step4-paym
 import { Step5ConfirmationPage } from "./pages/ticket-multistep/step5-confirmation";
 import { Step6ReceiptPage } from "./pages/ticket-multistep/step6-receipt";
 import { TicketFlowLayout } from "./pages/ticket-multistep/ticket-flow-layout";
+import ScrollToTop from "./components/ScrollToTop";
 
 export enum ERoutes {
   HOME = "/",
@@ -27,6 +28,7 @@ export enum ERoutes {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path={ERoutes.HOME} element={<LandingPage />} />

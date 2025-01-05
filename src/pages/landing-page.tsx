@@ -30,7 +30,7 @@ export const LandingPage = () => {
 
   return (
     <>
-      <section className="h-[73vh] sm:h-[77vh] flex flex-col justify-between items-center">
+      <section className="h-[73vh] sm:h-[77vh] flex flex-col justify-around items-center">
         <div className="w-full h-full mb-10 brightness-[0.45] absolute top-0 left-0 -z-10">
           <img
             src={heroImg}
