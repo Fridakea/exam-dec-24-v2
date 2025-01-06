@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { Database, Tables } from "./database.types";
+import { Database } from "./database.types";
 import { TicketInfo } from "@/stores/booking-store";
 
 const publicKey =
