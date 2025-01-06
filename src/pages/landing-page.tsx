@@ -50,6 +50,7 @@ export const LandingPage = () => {
 
         <Button
           variant="link"
+          name="scroll-down"
           onClick={() =>
             myRef.current?.scrollIntoView({
               behavior: "smooth",

@@ -59,6 +59,8 @@ export const SchedulePage = () => {
           <div className="w-full flex justify-around lg:justify-between">
             <Button
               variant="outline"
+              role="button"
+              name="Midgaard-filter"
               className={`flex items-end gap-0 flex-wrap ${
                 sceneFilter === sceneArray[0] ? "bg-secondary border-accent" : ""
               }`}
@@ -70,6 +72,8 @@ export const SchedulePage = () => {
 
             <Button
               variant="outline"
+              role="button"
+              name="Vanaheim-filter"
               className={`flex items-end gap-0 flex-wrap ${
                 sceneFilter === sceneArray[1] ? "bg-secondary border-accent" : ""
               }`}
@@ -81,6 +85,8 @@ export const SchedulePage = () => {
 
             <Button
               variant="outline"
+              role="button"
+              name="Jotunheim-filter"
               className={`flex items-end gap-0 flex-wrap ${
                 sceneFilter === sceneArray[2] ? "bg-secondary border-accent" : ""
               }`}
