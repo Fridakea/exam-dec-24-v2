@@ -97,191 +97,232 @@ export const Step3ContactInformationPage = () => {
               name="contact_info"
               render={() => (
                 <FormItem>
+                  {/* VIP Tickets */}
                   {vipTicketNumbers.map((ticket) => (
-                    <FormField
-                      key={ticket}
-                      control={formObject.control}
-                      name="contact_info"
-                      render={({ field }) => (
-                        <FormItem className="p-4 border border-accent rounded-md mb-8 shadow-md">
-                          <FormControl>
-                            <fieldset>
-                              <legend className="mb-4 ~text-lg/xl uppercase flex items-center gap-2">
-                                <span className="text-accent font-semibold ~text-3xl/4xl">VIP</span> partout billet{" "}
-                                {ticket}
-                              </legend>
-                              <div className="flex flex-col sm:flex-row gap-3 *:flex-1">
-                                <div>
-                                  <Label>Fornavn</Label>
+                    <div key={ticket} className="p-4 border border-accent rounded-md mb-8 shadow-md">
+                      <legend className="mb-4 ~text-lg/xl uppercase flex items-center gap-2">
+                        <span className="text-accent font-semibold ~text-3xl/4xl">VIP</span> partout billet {ticket}
+                      </legend>
+
+                      <div className="flex flex-col sm:flex-row gap-3 *:flex-1">
+                        <div>
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket - 1}.first_name`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Fornavn</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket - 1]?.first_name}
+                                    {...field}
                                     required
                                     inputMode="text"
                                     autoComplete="given-name"
                                     onChange={(e) => {
                                       if (!MyRegexes.onlyText.test(e.currentTarget.value)) return;
-                                      field.onChange(
-                                        getUpdatedContactInfo("first_name", e.currentTarget.value, ticket, field.value)
-                                      );
+                                      field.onChange(e.currentTarget.value);
                                     }}
                                     type="text"
                                   />
-                                </div>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
 
-                                <div className="mb-3">
-                                  <label>Efternavn</label>
+                        <div>
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket - 1}.last_name`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Efternavn</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket - 1]?.last_name}
+                                    {...field}
                                     required
                                     inputMode="text"
                                     autoComplete="family-name"
                                     onChange={(e) => {
                                       if (!MyRegexes.onlyText.test(e.currentTarget.value)) return;
-                                      field.onChange(
-                                        getUpdatedContactInfo("last_name", e.currentTarget.value, ticket, field.value)
-                                      );
+                                      field.onChange(e.currentTarget.value);
                                     }}
                                     type="text"
                                   />
-                                </div>
-                              </div>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
 
-                              <div className="flex flex-col sm:flex-row gap-3">
-                                <div className="flex-1">
-                                  <label>Telefon</label>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="flex-1">
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket - 1}.tel`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Telefon</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket - 1]?.tel}
+                                    {...field}
                                     required
                                     inputMode="tel"
                                     autoComplete="tel"
                                     className="max-w-[65%] sm:max-w-full"
                                     onChange={(e) => {
                                       if (!MyRegexes.onlyNumber.test(e.currentTarget.value)) return;
-
-                                      field.onChange(
-                                        getUpdatedContactInfo("tel", e.currentTarget.value, ticket, field.value)
-                                      );
+                                      field.onChange(e.currentTarget.value);
                                     }}
                                     type="tel"
                                   />
-                                </div>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
 
-                                <div className="flex-[2]">
-                                  <label>Email</label>
+                        <div className="flex-[2]">
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket - 1}.email`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Email</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket - 1]?.email}
+                                    {...field}
                                     required
                                     inputMode="email"
                                     autoComplete="email"
-                                    onChange={(e) =>
-                                      field.onChange(
-                                        getUpdatedContactInfo("email", e.currentTarget.value, ticket, field.value)
-                                      )
-                                    }
+                                    onChange={(e) => field.onChange(e.currentTarget.value)}
                                     type="email"
                                   />
-                                </div>
-                              </div>
-                            </fieldset>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   ))}
 
+                  {/* Regular Tickets */}
                   {ticketNumbers.map((ticket) => (
-                    <FormField
-                      key={ticket}
-                      control={formObject.control}
-                      name="contact_info"
-                      render={({ field }) => (
-                        <FormItem className="p-4 border border-muted-foreground rounded-md mb-8 shadow-md">
-                          <FormControl>
-                            <fieldset>
-                              <legend className="mb-4 ~text-lg/xl uppercase">Partout billet {ticket}</legend>
-                              <div className="flex flex-col sm:flex-row gap-3 *:flex-1">
-                                <div>
-                                  <Label>Fornavn</Label>
+                    <div key={ticket} className="p-4 border border-muted-foreground rounded-md mb-8 shadow-md">
+                      <legend className="mb-4 ~text-lg/xl uppercase">Partout billet {ticket}</legend>
+
+                      <div className="flex flex-col sm:flex-row gap-3 *:flex-1">
+                        <div>
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket + totalVipTickets - 1}.first_name`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Fornavn</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket + totalVipTickets - 1]?.first_name}
-                                    onChange={(e) =>
-                                      field.onChange(
-                                        getUpdatedContactInfo(
-                                          "first_name",
-                                          e.currentTarget.value,
-                                          ticket + totalVipTickets,
-                                          field.value
-                                        )
-                                      )
-                                    }
+                                    {...field}
+                                    required
+                                    inputMode="text"
+                                    autoComplete="given-name"
+                                    onChange={(e) => {
+                                      if (!MyRegexes.onlyText.test(e.currentTarget.value)) return;
+                                      field.onChange(e.currentTarget.value);
+                                    }}
                                     type="text"
                                   />
-                                </div>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
 
-                                <div className="mb-3">
-                                  <label>Efternavn</label>
+                        <div>
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket + totalVipTickets - 1}.last_name`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Efternavn</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket + totalVipTickets - 1]?.last_name}
-                                    onChange={(e) =>
-                                      field.onChange(
-                                        getUpdatedContactInfo(
-                                          "last_name",
-                                          e.currentTarget.value,
-                                          ticket + totalVipTickets,
-                                          field.value
-                                        )
-                                      )
-                                    }
+                                    {...field}
+                                    required
+                                    inputMode="text"
+                                    autoComplete="family-name"
+                                    onChange={(e) => {
+                                      if (!MyRegexes.onlyText.test(e.currentTarget.value)) return;
+                                      field.onChange(e.currentTarget.value);
+                                    }}
                                     type="text"
                                   />
-                                </div>
-                              </div>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
 
-                              <div className="flex flex-col sm:flex-row gap-3">
-                                <div className="flex-1">
-                                  <label>Telefon</label>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="flex-1">
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket + totalVipTickets - 1}.tel`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Telefon</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket + totalVipTickets - 1]?.tel}
+                                    {...field}
+                                    required
+                                    inputMode="tel"
+                                    autoComplete="tel"
                                     className="max-w-[65%] sm:max-w-full"
-                                    onChange={(e) =>
-                                      field.onChange(
-                                        getUpdatedContactInfo(
-                                          "tel",
-                                          e.currentTarget.value,
-                                          ticket + totalVipTickets,
-                                          field.value
-                                        )
-                                      )
-                                    }
+                                    onChange={(e) => {
+                                      if (!MyRegexes.onlyNumber.test(e.currentTarget.value)) return;
+                                      field.onChange(e.currentTarget.value);
+                                    }}
                                     type="tel"
                                   />
-                                </div>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
 
-                                <div className="flex-[2]">
-                                  <label>Email</label>
+                        <div className="flex-[2]">
+                          <FormField
+                            control={formObject.control}
+                            name={`contact_info.${ticket + totalVipTickets - 1}.email`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Label>Email</Label>
+                                <FormControl>
                                   <Input
-                                    value={field.value[ticket + totalVipTickets - 1]?.email}
-                                    onChange={(e) =>
-                                      field.onChange(
-                                        getUpdatedContactInfo(
-                                          "email",
-                                          e.currentTarget.value,
-                                          ticket + totalVipTickets,
-                                          field.value
-                                        )
-                                      )
-                                    }
+                                    {...field}
+                                    required
+                                    inputMode="email"
+                                    autoComplete="email"
+                                    onChange={(e) => field.onChange(e.currentTarget.value)}
                                     type="email"
                                   />
-                                </div>
-                              </div>
-                            </fieldset>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </FormItem>
               )}
