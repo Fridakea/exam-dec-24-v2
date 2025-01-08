@@ -19,14 +19,14 @@ const formSchema = z.object({
     .number()
     .int()
     .refine((num) => num.toString().length >= 16, {
-      message: "Kortnummeret er minimum 16 cifre",
+      message: "Kortnummeret er min. 16 cifre",
     }),
-  expiration: z.string().min(4, "Udløbsdatoen er minimum 4 cifre"),
+  expiration: z.string().min(4, "Udløbsdatoen er 4 cifre"),
   cvc: z
     .number()
     .int()
     .refine((num) => num.toString().length === 3, {
-      message: "CVC skal være 3 cifre",
+      message: "CVC er 3 cifre",
     }),
 });
 
