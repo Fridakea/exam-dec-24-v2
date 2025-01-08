@@ -15,9 +15,19 @@ import { Basket } from "@/components/Basket";
 
 const formSchema = z.object({
   cardholder_name: z.string().min(2, "Navnet skal være mindst 2 bogstaver"),
-  card_number: z.number().int().min(16, "Kortnummeret er minimum 16 cifre"),
+  card_number: z
+    .number()
+    .int()
+    .refine((num) => num.toString().length >= 16, {
+      message: "Kortnummeret er minimum 16 cifre",
+    }),
   expiration: z.string().min(4, "Udløbsdatoen er minimum 4 cifre"),
-  cvc: z.number().int().min(2, "CVC skal være 3 cifre"),
+  cvc: z
+    .number()
+    .int()
+    .refine((num) => num.toString().length === 3, {
+      message: "CVC skal være 3 cifre",
+    }),
 });
 
 type FormData = z.infer<typeof formSchema>;
