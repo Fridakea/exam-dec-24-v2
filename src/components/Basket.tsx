@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { useBookingStore } from "@/stores/booking-store";
+import { ChevronUp, ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -51,7 +52,7 @@ export function Basket() {
           variant="outline"
           className="w-full h-fit -mx-4 p-4 fixed bottom-0 rounded-none rounded-t-lg flex justify-between"
         >
-          <p>Pil op</p>
+          <ChevronUp className="!size-7" />
           <p>I ALT: {totalSum}</p>
         </Button>
       </DrawerTrigger>
@@ -62,7 +63,7 @@ export function Basket() {
               variant="outline"
               className="w-full h-fit p-4 absolute top-0 left-0 rounded-none flex justify-between z-10"
             >
-              <p>Pil ned</p>
+              <ChevronDown className="!size-7" />
               <p>Luk</p>
             </Button>
           </DrawerClose>

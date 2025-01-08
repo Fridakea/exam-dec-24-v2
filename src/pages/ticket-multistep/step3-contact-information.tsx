@@ -81,7 +81,7 @@ export const Step3ContactInformationPage = () => {
       const result = formSchema.safeParse(formObject.getValues());
 
       // For debugging validation:
-      if (!result.success) console.log(result.error.errors);
+      // if (!result.success) console.log(result.error.errors);
     });
   }, []);
 
