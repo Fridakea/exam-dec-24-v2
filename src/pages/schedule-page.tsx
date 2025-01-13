@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { ERoutes } from "@/main";
 import { dayNames, EnrichedScheduleData, getEnrichedSchedule } from "@/lib/api";
 import { findBandImage } from "@/lib/helpers";
+
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Search } from "lucide-react";
+import { Filter } from "lucide-react";
 
 export const SchedulePage = () => {
   const [enrichedScheduleData, setEnrichedScheduleData] = useState<EnrichedScheduleData | null>(null);
@@ -34,12 +37,15 @@ export const SchedulePage = () => {
     bandsGrid: "mb-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-3 lg:gap-x-8 sm:gap-y-5",
   };
 
+  let bandAmount = 0;
+
   return (
     <div className="flex flex-col">
       <h1 className="mb-8">Program</h1>
-      <div className="flex flex-col lg:flex-row lg:gap-20 lg:items-start">
+      <div className="mb-4 flex flex-col lg:flex-row gap-4 lg:gap-20 lg:items-start">
         <div className="flex-1 mb-4">
-          <div className="mb-2">
+          <div className="mb-2 flex gap-2">
+            <Search />
             <Label htmlFor="seacrh" className="~text-lg/xl">
               Søg
             </Label>
@@ -55,13 +61,30 @@ export const SchedulePage = () => {
         </div>
 
         <div className="mb-4 flex-[1.5]">
-          <h3 className="mb-2">Scener</h3>
-          <div className="w-full flex justify-around lg:justify-between">
+          <div className="flex gap-2">
+            <Filter />
+            <h3 className="mb-2">Scener</h3>
+          </div>
+          <div className="relative w-full flex gap-2 justify-around flex-wrap lg:justify-between">
             <Button
               variant="outline"
               role="button"
               name="Midgaard-filter"
-              className={`flex items-end gap-0 flex-wrap ${
+              className={`sm:w-fit flex gap-0 sm:gap-1 flex-grow sm:flex-grow-0 ${
+                sceneFilter === "" ? "bg-secondary border-accent" : ""
+              }`}
+              onClick={() => setSceneFilter("")}
+            >
+              <h1 className="text-background">.</h1>
+              <p>Alle</p>
+              <h1 className="text-background">.</h1>
+            </Button>
+
+            <Button
+              variant="outline"
+              role="button"
+              name="Midgaard-filter"
+              className={`w-full sm:w-fit flex gap-0 sm:gap-1 flex-grow sm:flex-grow-0 ${
                 sceneFilter === sceneArray[0] ? "bg-secondary border-accent" : ""
               }`}
               onClick={() => setSceneFilter(sceneFilter === sceneArray[0] ? "" : sceneArray[0])}
@@ -74,7 +97,7 @@ export const SchedulePage = () => {
               variant="outline"
               role="button"
               name="Vanaheim-filter"
-              className={`flex items-end gap-0 flex-wrap ${
+              className={`w-full sm:w-fit flex gap-0 sm:gap-1 flex-grow sm:flex-grow-0 ${
                 sceneFilter === sceneArray[1] ? "bg-secondary border-accent" : ""
               }`}
               onClick={() => setSceneFilter(sceneFilter === sceneArray[1] ? "" : sceneArray[1])}
@@ -87,7 +110,7 @@ export const SchedulePage = () => {
               variant="outline"
               role="button"
               name="Jotunheim-filter"
-              className={`flex items-end gap-0 flex-wrap ${
+              className={`w-full sm:w-fit flex gap-0 sm:gap-1 flex-grow sm:flex-grow-0 ${
                 sceneFilter === sceneArray[2] ? "bg-secondary border-accent" : ""
               }`}
               onClick={() => setSceneFilter(sceneFilter === sceneArray[2] ? "" : sceneArray[2])}
@@ -120,14 +143,32 @@ export const SchedulePage = () => {
           </div>
         </section>
       )}
+
       {enrichedScheduleData &&
         Object.entries(enrichedScheduleData).map(([_, bands], i) =>
           !bands.some((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())) ? (
             ""
           ) : (
             <section key={i}>
+              <div hidden>
+                {
+                  (bandAmount = bands
+                    .filter((band) => band.scene.includes(sceneFilter))
+                    .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())).length)
+                }
+              </div>
               <h2>{dayNames[i]}</h2>
-              <p className="text-muted-foreground mb-4">{bands.length} bands spiller</p>
+              <p className="text-muted-foreground mb-4">
+                {
+                  bands
+                    .filter((band) => band.scene.includes(sceneFilter))
+                    .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())).length
+                }{" "}
+                bands
+              </p>
+              <p className="text-muted-foreground mb-4">
+                {bandAmount === 1 ? `${bandAmount} band` : `${bandAmount} bands`}
+              </p>
 
               <div className={cssClasses.bandsGrid}>
                 {bands
