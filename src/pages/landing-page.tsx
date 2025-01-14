@@ -104,7 +104,7 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      <section className="h-full sm:h-screen pt-32 -m-6 flex flex-col bg-card text-card-foreground">
+      <section className="h-full min-h-screen pt-32 -m-6 flex flex-col bg-card text-card-foreground">
         <div>
           <h1 className="font-poppins ~text-2xl/4xl text-center mb-5">Dørene åbner om</h1>
           <div className="mb-24 lg:mb-32 flex gap-1 sm:gap-4 items-center justify-center text-center *:font-nova-cut">
