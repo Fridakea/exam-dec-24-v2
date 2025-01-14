@@ -39,9 +39,9 @@ export const LandingPage = () => {
           />
         </div>
 
-        <div className="h-[50vh] flex flex-col items-center justify-center gap-5 sm:gap-10 text-center">
+        <div className="h-[50vh] mb-8 flex flex-col items-center justify-center gap-5 text-center">
           <h1 className="max-w-[600px] ~text-6xl/8xl">Foo Festival 2025</h1>
-          <h2 className="mb-8 lg:mb-16 ~text-xl/2xl">Danmarks vikingeby Roskilde</h2>
+          <h2 className="mb-6 lg:mb-10 ~text-xl/2xl">Danmarks vikingeby Roskilde</h2>
 
           <Button size="lg" variant="accent" onClick={() => navigate(`${ERoutes.BUY_TICKET}`)}>
             Køb billet
