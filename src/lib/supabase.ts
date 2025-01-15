@@ -26,17 +26,18 @@ type BookingResult = {
   error?: string;
   success: boolean;
 };
-export const insertBooking = async (bookingData: BookingInsertData, tickets: TicketInfo[]): Promise<BookingResult> => {
-  const { data, error } = await supabase.from("booking").insert([bookingData]).select().single();
 
-  console.log(data);
-  if (error || !data.id) return { error: error?.message, success: false };
+export const insertBooking = async (bookingData: BookingInsertData, tickets: TicketInfo[]): Promise<BookingResult> => {
+  const { data: bookingResult, error } = await supabase.from("booking").insert([bookingData]).select().single();
+
+  console.log(bookingResult);
+  if (error || !bookingResult.id) return { error: error?.message, success: false };
 
   const { error: ticketError } = await supabase
     .from("ticket")
-    .insert(tickets.map((ticket) => ({ ...ticket, booking_id: data.id })));
+    .insert(tickets.map((ticket) => ({ ...ticket, booking_id: bookingResult.id })));
 
   if (ticketError) return { error: ticketError.message, success: false };
 
-  return { newId: data.id.toString(), success: true };
+  return { newId: bookingResult.id.toString(), success: true };
 };

@@ -5,7 +5,7 @@ import { formatSeconds, useCountdownStore } from "@/stores/countdown-store";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/img/hero.webp";
+import heroImg from "@/assets/img/heroimg.webp";
 import { ArrowDown } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -31,7 +31,7 @@ export const LandingPage = () => {
   return (
     <>
       <section className="h-[73vh] sm:h-[77vh] flex flex-col justify-around items-center">
-        <div className="w-full h-full brightness-[0.45] absolute top-0 left-0 -z-10">
+        <div className="w-full h-full brightness-75 absolute top-0 left-0 -z-10">
           <img
             src={heroImg}
             alt="Koncert billede"
@@ -39,8 +39,8 @@ export const LandingPage = () => {
           />
         </div>
 
-        <div className="h-[50vh] mb-8 flex flex-col items-center justify-center gap-5 text-center">
-          <h1 className="max-w-[600px] ~text-6xl/8xl">Foo Festival 2025</h1>
+        <div className="sm:-mt-4 mb-10 flex flex-col items-center gap-5 text-center">
+          <h1 className="max-w-[650px] ~text-6xl/8xl">Foo Festival 2025</h1>
           <h2 className="mb-6 lg:mb-10 ~text-xl/2xl">Danmarks vikingeby Roskilde</h2>
 
           <Button size="lg" variant="accent" onClick={() => navigate(`${ERoutes.BUY_TICKET}`)}>
