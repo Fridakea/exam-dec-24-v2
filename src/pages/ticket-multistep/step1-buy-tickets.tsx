@@ -56,12 +56,12 @@ export const Step1BuyTicketsPage = () => {
 
   const amount = totalTickets + totalVipTickets;
 
-  const handleSubmit = async () => {
-    setTotalTickets(formObject.getValues().ticket_amount);
-    setTotalVipTickets(formObject.getValues().vip_ticket_amount);
-    setArea(formObject.getValues().area);
+  const handleSubmit = async (values: FormData) => {
+    setTotalTickets(values.ticket_amount);
+    setTotalVipTickets(values.vip_ticket_amount);
+    setArea(values.area);
 
-    const response = await putReserve(formObject.getValues().area, amount);
+    const response = await putReserve(values.area, amount);
     startCountdown(response.timeout / 1000);
     setReservationId(response.id);
 
