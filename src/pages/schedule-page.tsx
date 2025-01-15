@@ -11,7 +11,7 @@ import { Search } from "lucide-react";
 import { Filter } from "lucide-react";
 
 export const SchedulePage = () => {
-  const [enrichedScheduleData, setEnrichedScheduleData] = useState<EnrichedScheduleData | null>(null);
+  const [bandsForDaysData, setBandsForDaysData] = useState<EnrichedScheduleData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -21,7 +21,7 @@ export const SchedulePage = () => {
     setIsLoading(true);
     getEnrichedSchedule()
       .then((data) => {
-        setEnrichedScheduleData(data);
+        setBandsForDaysData(data);
         setApiError(null);
         setIsLoading(false);
       })
@@ -144,28 +144,20 @@ export const SchedulePage = () => {
         </section>
       )}
 
-      {enrichedScheduleData &&
-        Object.entries(enrichedScheduleData).map(([_, bands], i) =>
-          !bands.some((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())) ? (
-            ""
-          ) : (
+      {bandsForDaysData &&
+        Object.entries(bandsForDaysData).map(([_, bands], i) => {
+          // If no bands contain the search input, render nothing, not even the day.
+          if (!bands.some((band) => band.name.toLowerCase().includes(searchValue.toLowerCase()))) {
+            return "";
+          }
+
+          bandAmount = bands
+            .filter((band) => band.scene.includes(sceneFilter))
+            .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())).length;
+
+          return (
             <section key={i}>
-              <div hidden>
-                {
-                  (bandAmount = bands
-                    .filter((band) => band.scene.includes(sceneFilter))
-                    .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())).length)
-                }
-              </div>
               <h2>{dayNames[i]}</h2>
-              <p className="text-muted-foreground mb-4">
-                {
-                  bands
-                    .filter((band) => band.scene.includes(sceneFilter))
-                    .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())).length
-                }{" "}
-                bands
-              </p>
               <p className="text-muted-foreground mb-4">
                 {bandAmount === 1 ? `${bandAmount} band` : `${bandAmount} bands`}
               </p>
@@ -193,8 +185,8 @@ export const SchedulePage = () => {
                   ))}
               </div>
             </section>
-          )
-        )}
+          );
+        })}
     </div>
   );
 };
