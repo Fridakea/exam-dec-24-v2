@@ -17,6 +17,8 @@ export const SchedulePage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [sceneFilter, setSceneFilter] = useState("");
 
+  console.log(bandsForDaysData);
+
   useEffect(() => {
     setIsLoading(true);
     getEnrichedSchedule()
@@ -36,8 +38,6 @@ export const SchedulePage = () => {
   const cssClasses = {
     bandsGrid: "mb-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-3 lg:gap-x-8 sm:gap-y-5",
   };
-
-  let bandAmount = 0;
 
   return (
     <div className="flex flex-col">
@@ -151,7 +151,7 @@ export const SchedulePage = () => {
             return "";
           }
 
-          bandAmount = bands
+          const bandAmount = bands
             .filter((band) => band.scene.includes(sceneFilter))
             .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())).length;
 

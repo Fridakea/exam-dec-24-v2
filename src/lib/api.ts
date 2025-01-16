@@ -40,7 +40,7 @@ export const dayNamesObject: Record<Day, string> = {
   sat: "Lørdag",
   sun: "Søndag",
 };
-export const dayNames = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag"];
+export const dayNames = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"];
 
 // A "Record" is like an object. It takes two types, the first is the property names, the second is the value types.
 // So { name: string; email: string; } is the same as Record<"name" | "email", string>.
