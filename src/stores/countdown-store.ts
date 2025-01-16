@@ -5,10 +5,13 @@ import { create } from "zustand";
 type CountdownStore = {
   remainingSeconds: number;
   setRemainingSeconds: (newSeconds: number) => void;
+
   intervalId: NodeJS.Timeout | null;
   setIntervalId: (id: NodeJS.Timeout | null) => void;
+
   hasCountdownFinished: boolean;
   setHasCountdownFinished: (newValue: boolean) => void;
+
   startCountdown: (totalSeconds: number) => void;
   stopCountdown: () => void;
 };
@@ -23,28 +26,31 @@ export const useCountdownStore = create<CountdownStore>((set, get) => ({
       if (state.intervalId) clearInterval(state.intervalId); // Clear old ID
       return { intervalId: newId }; // return the new one
     }),
+
   hasCountdownFinished: false,
   setHasCountdownFinished: (newValue) => set({ hasCountdownFinished: newValue }),
+
   startCountdown: (totalSeconds: number) => {
     const { setRemainingSeconds, setIntervalId, setHasCountdownFinished } = get();
     setRemainingSeconds(totalSeconds);
 
     // Prevent multiple intervals from being set
     if (get().intervalId) return;
+
     setHasCountdownFinished(false);
 
-    const interval = setInterval(() => {
+    const newId = setInterval(() => {
       const currentSeconds = get().remainingSeconds;
       if (currentSeconds <= 0) {
         setHasCountdownFinished(true);
-        clearInterval(interval);
+        clearInterval(newId);
         setIntervalId(null);
       } else {
         setRemainingSeconds(currentSeconds - 1);
       }
     }, 1000);
 
-    setIntervalId(interval);
+    setIntervalId(newId);
   },
   stopCountdown: () => {
     const { intervalId, setIntervalId, setRemainingSeconds } = get();
