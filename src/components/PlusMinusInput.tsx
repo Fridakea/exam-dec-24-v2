@@ -26,7 +26,7 @@ export const PlusMinusInput: FC<PlusMinusInputProps> = ({ field, min = 0, max = 
         disabled={field.value <= min}
       >
         <Minus />
-        <span className="sr-only">Increase</span>
+        <span className="sr-only">Decrease</span>
       </Button>
       <Input
         {...field}
