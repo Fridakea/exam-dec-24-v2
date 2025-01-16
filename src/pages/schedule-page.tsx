@@ -151,38 +151,35 @@ export const SchedulePage = () => {
             return "";
           }
 
-          const bandAmount = bands
+          const matchingBands = bands
             .filter((band) => band.scene.includes(sceneFilter))
-            .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase())).length;
+            .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase()));
+
+          const bandAmount = matchingBands.length;
 
           return (
             <section key={i}>
               <h2>{dayNames[i]}</h2>
-              <p className="text-muted-foreground mb-4">
-                {bandAmount === 1 ? `${bandAmount} band` : `${bandAmount} bands`}
-              </p>
+              <p className="text-muted-foreground mb-4">{`${bandAmount} ${bandAmount === 1 ? "band" : "bands"}`}</p>
 
               <div className={cssClasses.bandsGrid}>
-                {bands
-                  .filter((band) => band.name.toLowerCase().includes(searchValue.toLowerCase()))
-                  .filter((band) => band.scene.includes(sceneFilter))
-                  .map((band, i) => (
-                    <Link
-                      to={`${ERoutes.BAND}/${band.slug}`}
-                      key={i}
-                      className="relative w-full h-full inline-flex flex-col gap-2 transition-all hover:text-accent hover:scale-110"
-                    >
-                      <p className="absolute right-3 top-1 font-nova-cut text-accent-foreground ~text-2xl/4xl z-10">
-                        {band.scene[0]}
-                      </p>
-                      <img
-                        src={findBandImage(band.logo)}
-                        alt={band.logoCredits}
-                        className="w-full h-40 sm:h-52 object-cover brightness-50 grayscale-[50%] hover:brightness-75"
-                      />
-                      <h3 className="text-center truncate">{band.name}</h3>
-                    </Link>
-                  ))}
+                {matchingBands.map((band, i) => (
+                  <Link
+                    to={`${ERoutes.BAND}/${band.slug}`}
+                    key={i}
+                    className="relative w-full h-full inline-flex flex-col gap-2 transition-all hover:text-accent hover:scale-110"
+                  >
+                    <p className="absolute right-3 top-1 font-nova-cut text-accent-foreground ~text-2xl/4xl z-10">
+                      {band.scene[0]}
+                    </p>
+                    <img
+                      src={findBandImage(band.logo)}
+                      alt={band.logoCredits}
+                      className="w-full h-40 sm:h-52 object-cover brightness-50 grayscale-[50%] hover:brightness-75"
+                    />
+                    <h3 className="text-center truncate">{band.name}</h3>
+                  </Link>
+                ))}
               </div>
             </section>
           );
